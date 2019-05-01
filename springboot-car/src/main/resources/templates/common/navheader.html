@@ -1,0 +1,30 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" id="header">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button> -->
+            <span class="navbar-brand" style="font-size: 40px">[[${session.user.user_name}]]</span>
+        </div>
+        <div class="navbar-right row">
+            <span class="navbar-brand col-md-1"><span class="glyphicon glyphicon-log-out" onclick="logout()"></span></span>
+        </div>
+    </div>
+    <script>
+        function logout() {
+            window.location.href="/logout";
+        }
+    </script>
+</nav>
+
+</body>
+</html>
+

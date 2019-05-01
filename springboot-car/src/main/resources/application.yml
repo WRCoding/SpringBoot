@@ -1,0 +1,13 @@
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    username: root
+    password: 1001101
+    url: jdbc:mysql://localhost:3306/loginweb?serverTimezone=GMT%2B8
+    #    schema:
+    #      - classpath:w.sql
+    initialization-mode: always
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8888

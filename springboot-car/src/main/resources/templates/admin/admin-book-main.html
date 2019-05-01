@@ -1,0 +1,96 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>购书系统 - 管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/resource/css/dashboard.css}" rel="stylesheet">
+    <style>
+        h1 {
+            text-align: center;
+            border-bottom: 1px solid black;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/navheader :: #header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div th:replace="common/adminsidebar :: #adminsidebar(url='main')"></div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header">图书列表</h2>
+            <div class="table-responsive">
+                <table class="table table-striped" >
+                    <thead>
+                    <tr>
+                        <th>书名</th>
+                        <th>价格</th>
+                        <th>库存</th>
+                        <th>作者</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="book,stat:${page.booklist}">
+                        <td th:text="${book.bookName}"></td>
+                        <td th:text="${book.bookSprice}"></td>
+                        <td th:text="${book.bookCount}"></td>
+                        <td th:text="${book.bookAuthor}"></td>
+                            <td>
+                                <a th:href="@{'/admin/?bookId='+${book.bookId}+'&pageNum='+${page.pageNum}}" class="btn btn-default">更新</a>  <!-- 调用UpdateBookServlet中的doGet方法 -->
+                                <a href="javascript:void(0)" class="btn btn-default" th:onclick="'javascript:deleteBook('+${book.bookId}+');'">删除</a>  <!-- get方法 -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="pagination" th:if="${page.pageNum>0}">
+                    <li><a href="/page?pageNum=1">首页</a></li>
+                    <!--当前页数为第一页-->
+                    <th:block th:if="${page.pageNum == 1} "th:each="num,stat:${#numbers.sequence(page.start,page.end)}">
+                        <li th:if="${page.pageNum == num}"><span  style="color: deeppink" th:text="${num}"></span></li>
+                        <li th:if="${page.pageNum != num}"><a th:href="@{'/page?pageNum='+${num}}" th:text="${num}"></a></li>
+                    </th:block>
+                    <!--中间页-->
+                    <th:block th:if="${page.pageNum >1 && page.pageNum<page.totalPage}" >
+                        <!--<li><a th:href="@{'/page?pageNum='+${(page.pageNum)-1}}">上一页</a></li>-->
+                        <th:block th:each="num,stat:${#numbers.sequence(page.start,page.end)}">
+                            <li th:if="${page.pageNum == num}"><span  style="color: deeppink" th:text="${num}"></span></li>
+                            <li th:if="${page.pageNum != num}"><a th:href="@{'/page?pageNum='+${num}}" th:text="${num}"></a></li>
+                        </th:block>
+                        <!--<li><a th:href="@{'/page?pageNum='+${(page.pageNum)+1}}">下一页</a></li>-->
+                    </th:block>
+                    <!--当前页数为最后一页-->
+                    <th:block th:if="${page.pageNum == page.totalPage}">
+                        <!--<li><a th:href="@{'/page?pageNum='+${(page.pageNum)-1}}">上一页</a></li>-->
+                        <th:block th:each="num,stat:${#numbers.sequence(page.start,page.end)}">
+                            <li th:if="${page.pageNum == num}"><span  style="color: deeppink" th:text="${num}"></span></li>
+                            <li th:if="${page.pageNum != num}"><a th:href="@{'/page?pageNum='+${num}}" th:text="${num}"></a></li>
+                        </th:block>
+                        <!--<li><a th:href="@{'/page?pageNum='+${(page.pageNum)+1}}">下一页</a></li>-->
+                    </th:block>
+                    <li><a th:href="@{'/page?pageNum='+${page.totalPage}}">首页</a></li>
+                </ul>
+            </div>
+            <form id="deleteForm" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="pageNum" th:value="${page.pageNum}">
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function deleteBook(bookId) {
+        var form = document.getElementById("deleteForm");
+        form.setAttribute("action","/admin/"+bookId);//设置action
+        form.submit();
+    }
+</script>
+</body>
+</html>
+

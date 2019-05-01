@@ -1,0 +1,47 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{resource/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        .form-search{
+            max-width: 330px;
+            padding: 15px;
+            margin: 200px auto;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/navheader :: #header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <th:block th:if="${session.user.getUser_level_id() == 1}">
+                <div  th:replace="common/usersidebar :: #sidebar (url='search')" ></div>
+            </th:block>
+            <th:block th:if="${session.user.getUser_level_id() == 0}">
+                <div  th:replace="common/adminsidebar :: #adminsidebar (url='search')" ></div>
+            </th:block>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header">搜索图书</h2>
+            <div class="container">
+                <form action="searchBook" method="get" class="form-search form-horizontal">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4">关键字</label>
+                        <div class="col-md-8">
+                            <input type="text" name="key" required class="form-control"/><br/>
+                        </div>
+                    </div>
+                    <div class=" col-md-8 col-md-offset-4">
+                        <button type="submit" class="btn btn-default btn-primary btn-block">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+</div>
+</body>
+</html>

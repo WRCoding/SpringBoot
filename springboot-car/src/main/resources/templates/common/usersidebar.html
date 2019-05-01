@@ -1,0 +1,16 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+
+<ul class="nav nav-sidebar  " id="sidebar" >
+    <!--使用th:class并且根据传来的url参数来动态的active,使其高亮-->
+    <li style="margin-top: 10px;"th:class="${url=='main' ? 'nav-link active' : 'nav-link'}" ><a th:href="@{/page}" >图书列表</a></li>
+    <li th:class="${url=='search' ? 'nav-link active' : 'nav-link'}"><a th:href="@{/search}" >搜索图书</a> </li>
+    <li th:class="${url=='userupdate' ? 'nav-link active' : 'nav-link'}" ><a th:href="@{/userup}">个人中心</a></li>
+    <li th:class="${url=='usercar' ? 'nav-link active' : 'nav-link'}"><a th:href="@{/usercar}">购物车</a></li>
+    <li><a th:href="@{/logout}">退出系统</a></li>
+</ul>
+</body>
+</html>

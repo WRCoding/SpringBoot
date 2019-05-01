@@ -1,0 +1,78 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>购书系统 - 购书</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{resource/css/dashboard.css}" rel="stylesheet">
+    <style>
+        h3 {
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/navheader :: #header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div th:replace="common/usersidebar :: #sidebar (url='usercar')"></div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header" th:if="${not #lists.isEmpty(session.carList)}">购物车</h2>
+            <div class="container">
+                <h3 class="text-center" th:if="${#lists.isEmpty(session.carList)}">购书车空空如也 <a th:href="@{/page}" style="color: red">去购物</a></h3>
+                <table class="table table-striped" th:if="${not #lists.isEmpty(session.carList)}">
+                    <thead>
+                    <tr>
+                        <th>书名</th>
+                        <th>价格</th>
+                        <th>库存</th>
+                        <th>作者</th>
+                        <th>购买数量</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cart,stat:${session.carList}">
+                            <td th:text="${cart.book.bookName}"></td>
+                            <td th:text="${cart.book.bookSprice}"></td>
+                            <td th:text="${cart.book.bookCount}"></td>
+                            <td th:text="${cart.book.bookAuthor}"></td>
+                            <td th:text="${cart.number}"></td>
+                            <td>
+                                <button class="btn btn-default deletebtn" th:onclick="'javascript:deleteCar('+${cart.book.bookId}+');'">删除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="button" class="btn btn-primary btn-block btn-default" style="width: 200px;float: right" value="清空购物车" onclick="ClearCar()" th:if="${not #lists.isEmpty(session.carList)}">
+                <input type="button" class="btn btn-primary btn-block btn-default" style="width: 200px;float: left" value="结算" onclick="total()" th:if="${not #lists.isEmpty(session.carList)}">
+                <h3 th:if="${session.totalPrice != null}"> 您当前总共需要支付 <span style="color: red;"th:text="${session.totalPrice}"></span> 元</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="deleteForm" method="post">
+    <input type="hidden" name="_method" value="delete">
+</form>
+
+<script type="text/javascript">
+    function deleteCar(url) {
+        var form = document.getElementById("deleteForm");
+        form.setAttribute("action","/user/"+url);
+        form.submit();
+    }
+    function ClearCar() {
+        var form = document.getElementById("deleteForm");
+        form.setAttribute("action","/user");
+        form.submit();
+    }
+    function total() {
+        window.location.href="/user";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+<ul class="nav nav-sidebar" id="adminsidebar">
+    <li th:class="${url=='main' ? 'nav-link active' : 'nav-link'}" ><a th:href="@{/page}" >图书列表</a></li>
+    <li style="margin-top: 10px" th:class="${url=='addbook' ? 'nav-link active' : 'nav-link'}" ><a th:href="@{/addbook}">新增图书</a></li>
+    <li th:class="${url=='search' ? 'nav-link active' : 'nav-link'}"><a th:href="@{/search}" >搜索图书</a> </li>
+    <li th:class="${url=='import' ? 'nav-link active' : 'nav-link'}"><a th:href="@{/imoprt}">批量导入图书</a></li>
+    <li><a th:href="@{/logout}">退出系统</a></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{resource/css/signin.css}" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <form class="form-signin" action="/login" method="post">
+        <h1 class="form-signin-heading"style="margin-left: 50px;padding-left: 35px">购书系统</h1>
+        <input type="hidden" name="action" value="login">
+        <span style="color: red; " th:if="not ${#strings.isEmpty(msg)}"><strong th:text="${msg}"></strong></span><br/>
+        <!-- 用户输入框 -->
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text"  class="form-control" placeholder="用户名" name="username" required autofocus>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+          </div>
+        </div>
+        <!-- 密码输入框 -->
+        <div class="form-group">
+          <div class="input-group">
+            <input type="password"  class="form-control" placeholder="密码" name="userpassword" required autofocus style="margin-bottom: 0px">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+          </div>
+        </div>
+         <!--验证码输入框-->
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-10">
+              <div class="input-group">
+                <input type="text"  class="form-control" placeholder="验证码" name="validateCode" required autofocus>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <img  th:src="@{/img}" style="margin-top: 7px" onclick="changeImge()" id="CodeImage">
+            </div>
+          </div>
+        </div>
+        <!--类型选择-->
+        <div class="form-group">
+          <div class="radio">
+            <label style="margin-left: 50px">
+              <input type="radio" name="userType" value="0">管理员
+            </label>
+            <label style="margin-left: 50px">
+              <input type="radio" name="userType" value="1" checked>用户
+            </label>
+          </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+      </form>
+      <div class="col-md-7 col-md-offset-5">
+        <button type="button" class="btn btn-link" style="font-size: 25px" onclick="regist()">注册</button>
+      </div>
+    </div> <!-- /container -->
+    <script type="text/javascript">
+      function regist() {
+          window.location.href="/regist";
+      }
+        function changeImge() {
+            var ajax;
+            if (window.XMLHttpRequest){
+                ajax = new XMLHttpRequest();
+            } else if (window.ActiveXObject){
+                ajax = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState == 4){
+                    if (ajax.status == 200){
+                        document.getElementById("CodeImage").src="img?"+Math.random();
+                    }
+                }
+            }
+            ajax.open("get","img",true);
+            ajax.send(null);
+        }
+    </script>
+  </body>
+</html>

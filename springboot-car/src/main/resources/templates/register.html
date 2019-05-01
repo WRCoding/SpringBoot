@@ -1,0 +1,82 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>购书系统</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link th:href="@{webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
+        .form-register{
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        .sub-header{
+            padding-bottom: 10px;
+            border-bottom: 1px solid black;
+        }
+        a{
+            text-decoration: none;
+        }
+        a:link {color: black}
+        a:visited {color: black}
+        a:hover {color: red}
+        a:active {color: red}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="sub-header">注册用户</h2>
+    <div th:if="not ${#strings.isEmpty(session.regMsg)}" style=" padding: 15px;margin: 0 auto;">
+        <p th:text="${session.regMsg}"></p>
+        <a th:href="@{/login}" th:text="去登录"></a>
+    </div>
+    <form th:if="${#strings.isEmpty(session.regMsg)}" id="registerForm" method="post" action="/user/regist" class="form-register form-horizontal" role="form" >
+        <div class="form-group">
+            <label class="control-label col-md-4"> 账户</label>
+            <div class="col-md-8">
+                <input type="text" name="userName" required class="form-control" id="userName"/><br/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4"> 密码</label>
+            <div class="col-md-8">
+                <input type="password" name="userPassword"  required class="form-control" id="userPassword"/><br/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4"> 确认密码</label>
+            <div class="col-md-8">
+                <input type="password" name="checkUserPassword" required class="form-control" id="checkUserPassword"/><br/>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-4">
+            <input type="button" value="注 册" class="btn btn-block btn-default btn-primary" onclick="registerFun()"><br/>
+        </div>
+    </form>
+
+</div>
+<script>
+    function registerFun() {
+        var userName = document.getElementById("userName").value;
+        var userPassword = document.getElementById("userPassword").value;
+        var checkUserPassword = document.getElementById("checkUserPassword").value;
+        //是否输入且输入是否为空
+        if (userName != null && userName.length != 0 && userPassword != null && userPassword.length != 0) {
+            if (userPassword != checkUserPassword) {
+                alert("两次输入的密码不同请重新输入");
+            } else {
+                var form = document.getElementById("registerForm");
+                form.submit();
+            }
+        } else {
+            alert("用户名或密码不能为空");
+        }
+    }
+</script>
+</body>
+</html>
+
