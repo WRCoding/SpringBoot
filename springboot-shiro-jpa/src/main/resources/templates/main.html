@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主页面</title>
+</head>
+<body>
+    <h1>欢迎</h1>
+    <p th:text="${session.user.name}"></p>
+    <a href="/user/view">用户查看</a><br>
+    <a href="/user/add">用户添加</a><br>
+    <a href="/user/delete">用户删除</a><br>
+    <a href="/user/vip">vip专用</a><br>
+</body>
+</html>

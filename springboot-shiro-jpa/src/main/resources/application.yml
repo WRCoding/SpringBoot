@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: root
+    password: 1001101
+    url: jdbc:mysql://localhost:3306/shiro?serverTimezone=GMT%2B8
+    initialization-mode: always
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+  thymeleaf:
+    cache: false
+    mode: HTML
