@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    username: root
+    password: 1001101
+    url: jdbc:mysql://localhost:3306/tjpu?serverTimezone=GMT%2B8
+    initialization-mode: always
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+#debug: true
