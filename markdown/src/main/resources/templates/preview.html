@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--css-->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/editormd.preview.css}">
+    <!--js-->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/marked.min.js}"></script>
+    <script th:src="@{/js/prettify.min.js}"></script>
+    <script th:src="@{/js/raphael.min.js}"></script>
+    <script th:src="@{/js/underscore.min.js}"></script>
+    <script th:src="@{/js/sequence-diagram.min.js}"></script>
+    <script th:src="@{/js/flowchart.min.js}"></script>
+    <script th:src="@{/js/jquery.flowchart.min.js}"></script>
+    <script th:src="@{/js/editormd.js}"></script>
+</head>
+<body>
+    <div id="markdown-to-html" class="markdown-body editormd-html-preview" >
+        <textarea style="display:none;" name="editormd-markdown-doc" id="mdText" th:text="${markdown}"></textarea>
+    </div>
+    <script type="text/javascript">
+        var markdowntohtml;
+        $(function () {
+            markdowntohtml = editormd.markdownToHTML("markdown-to-html", {
+                htmlDecode: "true", // you can filter tags decode
+                emoji: true,
+                taskList: true,
+                tex: true,
+                flowChart: true,
+                sequenceDiagram: true
+            });
+        })
+    </script>
+</body>
+</html>

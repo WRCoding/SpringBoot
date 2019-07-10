@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Simple example - Editor.md examples</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"  />
+    <link rel="stylesheet" th:href="@{/css/editormd.css}"  />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<div id="layout">
+    <header>
+        <h1>Simple example</h1>
+    </header>
+
+    <!--form表单包裹，可上传-->
+    <form action="/mark/save" method="post">
+        <div class="editormd" id="test-editormd">
+            <textarea class="editormd-markdown-textarea"  id="content" name="text"></textarea>
+            <!--<textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc" id="content"></textarea>-->
+            <!--<textarea class="editormd-html-textarea" name="text" id="htmlContent"></textarea>-->
+        </div>
+        <div>
+            <input type="submit" value="提交">
+        </div>
+    </form>
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/editormd.min.js}"></script>
+<script type="text/javascript">
+    var testEditor;
+
+    $(function() {
+        testEditor = editormd("test-editormd", {
+            width   : "90%",
+            height  : 640,
+            syncScrolling : "single",
+            path    : "/lib/",
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/mark/upload",
+            // saveHTMLToTextarea : true
+        });
+    });
+</script>
+</body>
+</html>
